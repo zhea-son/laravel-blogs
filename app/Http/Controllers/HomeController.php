@@ -25,4 +25,24 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function view()
+    {
+        return view('view');
+    }
+
+    public function create()
+    {
+        return view('add');
+    }
+
+    public function edit()
+    {
+        return view('update');
+    }
+
+    public function delete()
+    {
+        return view('home');
+    }
 }
