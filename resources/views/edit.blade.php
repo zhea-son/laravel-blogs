@@ -8,23 +8,20 @@
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control" name="title" value="{{$blog->title}}">
         </div>
-        <div class="col-12">
-            <label for="category" class="form-label">Category</label>
-            <input type="text" class="form-control" name="category" value="{{$blog->category}}">
-        </div>
+        
         <div class="col-12">
             <label for="description" class="form-label">Description</label>
             <textarea class="form-control" name="description" name="description" rows="10" value="">{{$blog->description}}</textarea>
         </div>
-        {{-- <div class="col-12">
+        <div class="col-12">
             <label for="category">Category</label>
-            <select class="form-select" name="categoryy">
+            <select class="form-select" name="category">
               <option selected>Choose...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              @foreach ($blog_categories as $blog_category)
+              <option value="{{$blog_category->id}}">{{$blog_category->category}}</option>    
+              @endforeach
             </select>
-          </div> --}}
+          </div>
           <div class="col-12">
             <label for="inputGroupFile02">Upload</label>
             <input type="file" class="form-control" name="image">

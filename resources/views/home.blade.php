@@ -20,14 +20,15 @@
                   <h5 class="card-title">{{$blog->title}}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">{{$blog->category}}</li>
-                  <li class="list-group-item">{{$blog->user->name}}</li>
+                  <li class="list-group-item"><b>{{$blog->category->category}}</b></li>
+                  <li class="list-group-item">by: <b>{{$blog->user->name}}</b></li>
                   
                 </ul>
                 <div class="card-body">
-                    <a href="/edit/{{$blog->id}}" class="card-link">Edit</a>
+                  <a href="/view/{{$blog->id}}" class="card-link" style="color:black;">View</a>
+                  <a href="/edit/{{$blog->id}}" class="card-link">Edit</a>
+                  <a href="/delete/{{$blog->id}}" class="card-link" style="color:red;">Delete</a>
                 </div>
-                <a href="/view/{{$blog->id}}" class="btn btn-primary">View</a>
 
               </div>
             </div>

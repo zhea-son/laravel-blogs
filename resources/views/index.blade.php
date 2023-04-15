@@ -17,8 +17,8 @@
                       <h5 class="card-title">{{$blog->title}}</h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">{{$blog->category}}</li>
-                      <li class="list-group-item">Author</li>
+                      <li class="list-group-item"><b>{{$blog->category->category}}</b></li>
+                      <li class="list-group-item">by: <b>{{$blog->user->name}}</b></li>
                       
                     </ul>
                     <a href="/view/{{ $blog->id }}" class="btn btn-primary">View</a>

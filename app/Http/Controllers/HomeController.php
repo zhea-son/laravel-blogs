@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -35,15 +36,16 @@ class HomeController extends Controller
 
     public function create()
     {
-        return view('add');
+        $blog_categories = BlogCategory::all();
+        return view('add', compact('blog_categories'));
     }
 
     public function add(Request $request)
     {
-
+       
         $formFields = $request->validate([
             'title' => 'required',
-            'category' => 'required',
+            'blog_category_id' => 'required',
             
             'description' => 'required',
         ]);
@@ -57,7 +59,7 @@ class HomeController extends Controller
         }
 
         $formFields['user_id'] = auth()->id();
-        $formFields['author'] = auth()->user()->name;
+        // $formFields['blog_category_id'] = $formFields['category_id'];
 
         Blog::create($formFields);
 
@@ -67,7 +69,9 @@ class HomeController extends Controller
     public function edit($id)
     {
         $blog = Blog::findOrfail($id);
-        return view('edit', ['blog' => $blog] );
+        $blog_categories = BlogCategory::all();
+
+        return view('edit', ['blog' => $blog], compact('blog_categories') );
     }
 
     public function update($id, Request $request)
