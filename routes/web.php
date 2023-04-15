@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Blog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $blogs = Blog::latest()->Simplepaginate(6);
+    return view('index', compact('blogs'));
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
-Route::get('/view/{id}', [App\Http\Controllers\HomeController::class, 'view'])->name('view');
+Route::post('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add');
+Route::post('/view/{id}', [App\Http\Controllers\HomeController::class, 'view']);
+Route::put('/update/{id}', [App\Http\Controllers\HomeController::class, 'update'])->name('update');
 Route::get('/edit/{id}', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
-Route::get('/delete/{id}', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete');
+Route::get('/delete', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete');
