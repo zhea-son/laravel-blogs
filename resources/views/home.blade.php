@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container">
+  @if(auth()->user()->role == 0)
     <a href="{{ route('create') }}" class="btn btn-primary"> + Create New</a>
-
+  @endif
     @if (count($blogs)==0)
     No blogs Available
     
@@ -26,15 +27,22 @@
                 </ul>
                 <div class="card-body">
                   <a href="/view/{{$blog->id}}" class="card-link" style="color:black;">View</a>
+                  @if(auth()->user()->role == 0)
                   <a href="/edit/{{$blog->id}}" class="card-link">Edit</a>
-                  <a href="/delete/{{$blog->id}}" class="card-link" style="color:red;">Delete</a>
+                  @elseif(auth()->user()->role == 1)
+                  <form action="/delete/{{$blog->id}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="card-link underline" style="color:red;">Delete</button>
+                  </form>
+                  @endif
                 </div>
 
               </div>
             </div>
             @endforeach
     </div>
-    {{$blogs->links()}}
+    
 
 </div>
 @endsection

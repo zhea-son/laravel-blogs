@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::latest()->Simplepaginate(8);
+        if(auth()->user()->role == 1){
+            $blogs = Blog::all();
+        }
+        else{
+            $blogs = Auth::user()->blogs;
+        }
         return view('home', compact('blogs'));
     }
 
@@ -42,11 +48,9 @@ class HomeController extends Controller
 
     public function add(Request $request)
     {
-       
         $formFields = $request->validate([
             'title' => 'required',
-            'blog_category_id' => 'required',
-            
+            'blog_category_id' => 'required',           
             'description' => 'required',
         ]);
 
@@ -84,7 +88,6 @@ class HomeController extends Controller
         $formFields = $request->validate([
             'title' => 'required',
             'category' => 'required',
-            
             'description' => 'required',
         ]);
 
@@ -97,5 +100,14 @@ class HomeController extends Controller
         $blog->update($formFields);
 
         return redirect('/home')->with('message', "Listing updated successfully!");
+    }
+
+    public function destroy($id){
+        $blog = Blog::findOrFail($id);
+        if($blog->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
+        $blog->delete();
+        return back()->with('message', 'Listing deleted successfully!');
     }
 }

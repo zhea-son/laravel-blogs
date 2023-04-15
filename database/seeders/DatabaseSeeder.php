@@ -33,11 +33,12 @@ class DatabaseSeeder extends Seeder
             'gender' => "male",
         ],
         [
-            'name' => "User3",
-            'email' => "user3@gmail.com",
+            'name' => "Admin",
+            'email' => "admin@gmail.com",
             'password' => bcrypt('password'),
             'phone' => "1224667890",
             'gender' => "female",
+            'role' => 1,
         ]
         ];
 

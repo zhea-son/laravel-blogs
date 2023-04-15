@@ -16,7 +16,7 @@
         <div class="col-12">
             <label for="category">Category</label>
             <select class="form-select" name="category">
-              <option selected>Choose...</option>
+              <option selected>{{$blog->category->category}}</option>
               @foreach ($blog_categories as $blog_category)
               <option value="{{$blog_category->id}}">{{$blog_category->category}}</option>    
               @endforeach

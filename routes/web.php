@@ -24,9 +24,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
-Route::post('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add');
+Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create')->middleware('user');
+Route::post('/add', [App\Http\Controllers\HomeController::class, 'add'])->name('add')->middleware('user');
 Route::post('/view/{id}', [App\Http\Controllers\HomeController::class, 'view']);
-Route::put('/update/{id}', [App\Http\Controllers\HomeController::class, 'update'])->name('update');
-Route::get('/edit/{id}', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
-Route::get('/delete', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete');
+Route::put('/update/{id}', [App\Http\Controllers\HomeController::class, 'update'])->name('update')->middleware('user');
+Route::get('/edit/{id}', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit')->middleware('user');
+Route::delete('/delete/{id}', [App\Http\Controllers\HomeController::class, 'destroy'])->name('delete')->middleware('admin');
